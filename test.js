@@ -7,9 +7,8 @@ var synth = window.speechSynthesis;
 
 function play() {
 var msg = new SpeechSynthesisUtterance(real_word);
-var voices = synth.getVoices();
-console.log(voices)
-msg.voice = voices[2]
+voice = synth.getVoices().filter(function(voice) { return voice.voiceURI == 'Microsoft Aria Online (Natural) - English (United States)' })[0];
+msg.voice = voice
 synth.speak(msg);
 
 }

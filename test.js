@@ -21,7 +21,7 @@ function submit() {
 
   node = document.getElementById('table-body');
   attempts++;
-
+console.log(attempts)
   var word = document.getElementById("word").value;
   if (word.toLowerCase() == real_word.toLowerCase()) 
   {
@@ -34,10 +34,12 @@ function submit() {
   }
   else
   {
+    console.log('wrong')
     var msg = new SpeechSynthesisUtterance('Wrong');
     window.speechSynthesis.speak(msg);
     if (attempts >= 3)
     {
+      console.log('exceeds 3' + attempts)
       node.insertAdjacentHTML('afterend', "<tr><td>" + real_word + "</td><td>" + attempts + "</td><td>" + "Wrong" +"</td></tr>");
       new_word();
       document.getElementById("word").value = "";

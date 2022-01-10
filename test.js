@@ -12,23 +12,36 @@ msg.voice = voice
 synth.speak(msg);
 
 }
-
+attempts = 0;
 function new_word() {
 real_word = array.random();
 }
 
 function submit() {
-var word = document.getElementById("word").value;
-if (word.toLowerCase() == real_word.toLowerCase()) 
-{
-var msg = new SpeechSynthesisUtterance('Correct');
-window.speechSynthesis.speak(msg);
-new_word();
-document.getElementById("word").value = "";
-}
-else
-{
-var msg = new SpeechSynthesisUtterance('Wrong');
-window.speechSynthesis.speak(msg);
-}
+
+  node = document.getElementById('table-body');
+  attempts++;
+
+  var word = document.getElementById("word").value;
+  if (word.toLowerCase() == real_word.toLowerCase()) 
+  {
+    var msg = new SpeechSynthesisUtterance('Correct');
+    window.speechSynthesis.speak(msg);
+    new_word();
+    document.getElementById("word").value = "";
+    node.insertAdjacentHTML('afterend', "<tr><td>" + word + "</td><td>" + attempts + "</td><td>" + "Yes" +"</td></tr>");
+    attempts = 0;
+  }
+  else
+  {
+    var msg = new SpeechSynthesisUtterance('Wrong');
+    window.speechSynthesis.speak(msg);
+    if (attempts >= 3)
+    {
+      node.insertAdjacentHTML('afterend', "<tr><td>" + real_word + "</td><td>" + attempts + "</td><td>" + "Wrong" +"</td></tr>");
+      new_word();
+      document.getElementById("word").value = "";
+      attempts = 0;
+    }
+  }
 }
